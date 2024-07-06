@@ -35,7 +35,11 @@
 	(if (file-exists-p compile-path)
 	    (progn
 		  (setq path (read-file compile-path))
-		  (shell-command (concat "cd " path " && " com)))
+		  (with-temp-buffer
+			(cd path)
+			(compile com)))
 	  (message "Set directory first!"))
 	)
 )
+
+(global-set-key (kbd "C-<tab>") 'compile-dir)
